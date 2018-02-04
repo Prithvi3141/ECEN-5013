@@ -1,0 +1,1 @@
+cmd_/usr/src/linux-4.14.13/timer_module_hw2/timer_module.ko := ld -r -m elf_x86_64 -T ./scripts/module-common.lds --build-id  -o /usr/src/linux-4.14.13/timer_module_hw2/timer_module.ko /usr/src/linux-4.14.13/timer_module_hw2/timer_module.o /usr/src/linux-4.14.13/timer_module_hw2/timer_module.mod.o ;  true
