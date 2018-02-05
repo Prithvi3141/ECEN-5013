@@ -1,3 +1,2 @@
-/usr/src/linux-4.14.13/timer_module_hw2/timer_module.ko
-/usr/src/linux-4.14.13/timer_module_hw2/timer_module.o
-
+/home/prithvi/ECEN-5013/homework2/timer_module_hw2/timer_module.ko
+/home/prithvi/ECEN-5013/homework2/timer_module_hw2/timer_module.o

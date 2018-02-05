@@ -1,3 +1,11 @@
+/*
+# File_Name: periodic_cron_task.c
+# Author:  Prithvi Teja Veeravalli <prithvi.veeravalli.colorado.edu>
+# Description: This program is used to call the sort_array system call defined and call a few other system call APIs to collect a few information. Thsi program is going to be scheduled by cron to execute once in every 10 minutes like a daemon process.
+# Version: 1.2
+
+*/
+
 #include<stdio.h>
 #include<stdint.h>
 #include<stdlib.h>
@@ -42,7 +50,7 @@ int main()
 
 	printf("\n");
 
-	syscall(333, b, buffer_size, a);
+	syscall(333, b, buffer_size, a);    //Calling sort_array system call by using syscall API
 	
 	printf("Sorted Array\n");
 	for(int i = 0; i<num_elements; i++)

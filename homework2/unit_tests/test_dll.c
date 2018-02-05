@@ -1,3 +1,9 @@
+/*
+# File_Name: test_dll.c
+# Author:  Prithvi Teja Veeravalli <prithvi.veeravalli.colorado.edu>
+# Description: This program contains 8 unit tests for all 8 functions. 
+
+*/
 #include <math.h>
 #include <stdlib.h>
 
