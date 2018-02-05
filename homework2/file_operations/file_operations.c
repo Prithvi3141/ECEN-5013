@@ -17,6 +17,11 @@ int main()
 
 	printf("This program does File Operations required for %s", hw_string);
 	file = fopen(fileName, "w");
+	if(!file)
+	{
+		printf("Error opening file");
+		return 1;
+	}
 	chmod(fileName, S_IRUSR|S_IRGRP|S_IROTH|S_IWUSR|S_IWGRP|S_IWOTH);
 	
 
@@ -24,16 +29,32 @@ int main()
 	fputc((int) c, file);
 	fclose(file);
         file = fopen(fileName, "a");
+
+        if(!file)
+        {
+                printf("Error opening file");
+                return 1;
+        }
+
+
         fileBuffer = malloc(BUFFER_LEN);
         bzero(fileBuffer, BUFFER_LEN);
 	
 	fgets(fileBuffer, BUFFER_LEN, stdin);
 	
 	len = strlen(fileBuffer);
-	fwrite(file, CHAR_LEN, len, file);
+	fwrite(fileBuffer, CHAR_LEN, len, file);
 	fflush(file);
         fclose(file);
         file = fopen(fileName, "r");
+
+        if(!file)
+        {
+                printf("Error opening file");
+                return 1;
+        }
+
+
         bzero(fileBuffer, BUFFER_LEN);
 	*fileBuffer = (char)fgetc(file);
 	fgets(fileBuffer, BUFFER_LEN, file);
