@@ -4,7 +4,7 @@ These unit tests can be implemented by copying the contents of this directory in
 
 Once you add the contents of this directory. Run the following command to run the unit tests on the doubly linked data structures library.
 
-    # $ sudo make test
+     $ sudo make test
 
 The unit tests implemented here are as follows
 
