@@ -11,6 +11,8 @@
 #include<time.h>
 #include<sys/syscall.h>
 
+#include "double_l_list.h"
+
 typedef struct info{
 
 char *fileName;
@@ -25,6 +27,7 @@ void *cpu_utilization_logger_thread(void *init_info);
 void logging_cpu_utilization(int logFile);
 void print_to_log_file(int logFile, char *buffer, ssize_t readLength);
 void print_timestamp(int logFile);
+void parse_file(int logFile);
 
 
 
@@ -33,6 +36,7 @@ int thread_cancel[2];
 int threads_closed_count = 0;
 int logFile[3];
 pthread_t threads[2];
+struct node *head;
 
 pthread_mutex_t mutex_log;
  
@@ -46,14 +50,20 @@ void thread_cleanup_handler(int signum)
 	if(signum == SIGUSR1)
 	{
 		printf("\nIndia \n");
+		print_timestamp(logFile[1]);
+		print_to_log_file(logFile[1], "Exiting File_Parsing_Thread\n", strlen("Exiting File_Parsing_Thread\n"));
 		close(logFile[1]);
 		pthread_cancel(threads[0]);
+		destroy(head);
+		free(head);		
                 printf("\nIndia \n");
 
 	}
 	else if(signum == SIGUSR2)
 	{
                 printf("\nIndia \n");
+                print_timestamp(logFile[2]);
+                print_to_log_file(logFile[2], "Exiting CPU Logger Thread\n", strlen("Exiting CPU Logger Thread\n"));
 		close(logFile[2]);
 		pthread_cancel(threads[1]);
                 printf("\nIndia \n");
@@ -87,13 +97,15 @@ void * file_parsing_thread(void *init_info)
         sprintf(buffer, "I am in the File Parsing Thread\n");
         print_to_log_file(logFile[1], buffer, strlen(buffer));
 
-	close(logFile[1]);
+parse_file(logFile[1]);
 
-	while(1)
-	{
-		//printf("wbdahckhdbwjdeqwhjbwdqc\n");
-		//fflush(stdout);
-	}
+
+        print_timestamp(logFile[1]);
+        bzero(buffer, sizeof(buffer));
+        sprintf(buffer, "I am exiting the File Parsing Thread\n");
+        print_to_log_file(logFile[1], buffer, strlen(buffer));
+
+	close(logFile[1]);
 
 	pthread_exit(0);
 
@@ -169,6 +181,91 @@ void * cpu_utilization_logger_thread(void *init_info)
 
 	pthread_exit(0);
 
+
+}
+
+void parse_file(int logFile)
+{
+
+	int testFile, i;
+	int length = 0;
+	char buffer;
+	char buffer_tab[50];
+	char fetched_data;
+
+        struct int_list *element;
+        struct node *element_node;
+
+	testFile = open("Valentinesday.txt", O_RDONLY);
+	if(testFile<0)
+	{
+		printf("Error Opening File");
+		return;
+	}
+
+	head = malloc(sizeof(struct node));
+
+	while(read(testFile, &buffer, 1))
+	{
+		bool character_found = false;
+		for(i = 0; i<length; i++)
+		{
+			fetched_data = get_data(head, (size_t) i);
+			if(fetched_data == buffer)
+			{
+				character_found = true;
+				break;
+			}
+		}
+		if(character_found)
+		{
+			increment_count(head, i);
+			character_found = false;	
+		}
+		else
+		{
+			insert_at_beginning(head, buffer);
+			length++;
+		}
+	}
+
+
+
+        element_node = head->next;
+
+	bzero(buffer_tab, sizeof(buffer_tab));
+	print_timestamp(logFile);
+	sprintf(buffer_tab, "\nPrinting characters with 3 occurences\n");
+	print_to_log_file(logFile, buffer_tab, strlen(buffer_tab));
+	
+	printf("\n");
+
+	for(i = 0 ; i<length; i++)
+	{
+        	element = GET_LIST_CONTAINER(element_node, struct int_list, list_link);
+  	        if(element->count==3)
+		{
+			buffer = element->data;
+			bzero(buffer_tab, sizeof(buffer_tab));
+			sprintf(buffer_tab, "%c\t", buffer);
+			printf("%s", buffer_tab);
+			print_to_log_file(logFile, buffer_tab, strlen(buffer_tab));
+		}
+			
+                element_node = element_node->next;
+                i++;
+        }
+	bzero(buffer_tab, sizeof(buffer_tab));
+	sprintf(buffer_tab, "\nFinished Printing characters with 3 occurences\n");
+	print_to_log_file(logFile, buffer_tab, strlen(buffer_tab));
+ 	printf("\n");
+	
+	
+
+	
+	
+	
+	
 
 }
 
@@ -292,7 +389,14 @@ int main(int argc, char *argv[])
 
 	pthread_join(threads[0], NULL);
 	pthread_join(threads[1], NULL);
-	exit(1);
+
+	printf("hdekbwxhlx");
+
+        print_timestamp(logFile[0]);
+        sprintf(buffer, "Main Thread is exiting. Execution completed\n");
+        print_to_log_file(logFile[0], buffer, strlen(buffer));
+	close(logFile[0]);
+	exit(0);
 
 }
 
