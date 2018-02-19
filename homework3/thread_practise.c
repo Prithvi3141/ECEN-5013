@@ -1,3 +1,12 @@
+/*
+# File_Name: thread_practise.c
+# Author:  Prithvi Teja Veeravalli <prithvi.veeravalli.colorado.edu>
+# Description: This source file is used to spawn 2 threads. 1 Thread is used to parse a file and log characters which occur 3 times. 2nd thread is used to log CPU Utilization Statistics.SIGUSR1 and SIGUSR2 
+#are used to close thread 1 and thread 2 respectively.
+# Tools used: bash shell is used to interpret this script 
+
+*/
+
 #include<stdio.h>
 #include<stdlib.h>
 #include<stdint.h>
