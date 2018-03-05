@@ -1,0 +1,18 @@
+#!/bin/bash
+# File Name: system_info
+# Author: Prithvi Teja Veeravalli <prithvi.veeravalli@colroado.edu>
+# Description: This script is used to fetch the basic system info related to the machine and outputs
+#	      to a text file system_info.txt
+# Written for ECEN 5013 Homework 1 in Spring 2018 at the University of Colorado Boulder
+
+SYSINFOFILEPATH=system_info.txt
+
+id &> $SYSINFOFILEPATH
+uname -s &>> $SYSINFOFILEPATH
+lsb_release -id &>> $SYSINFOFILEPATH
+lsb_release -r &>> $SYSINFOFILEPATH
+uname -r &>> $SYSINFOFILEPATH
+cat /proc/version &>> $SYSINFOFILEPATH
+uname -v &>> $SYSINFOFILEPATH
+uname -i &>> $SYSINFOFILEPATH
+df -T &>> $SYSINFOFILEPATH

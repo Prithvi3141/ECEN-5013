@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# File_Name: build_kernel
+# Author:  Prithvi Teja Veeravalli <prithvi.veeravalli.colorado.edu>
+# Description: This script automatically compiles the kernel from its source.
+# Tools used: bash shell is used to interpret this script 
+
+NUM_CORES='4'    			# Statically sets the number of jobs (speeds up the process)
+
+cd ~/linux-4.14.15/			# Go to the src folder
+ 
+make -j$NUM_CORES			# Compiles the kernal
+make modules -j$NUM_CORES		# Compiles kernal modules
+make modules_install -j$NUM_CORES	# Installs the modules
+make install -j$NUM_CORES		# Installs the kernel
+
+echo -en "Please Reboot on successful completion of kernel compile.\n"  # Prints the string
+
