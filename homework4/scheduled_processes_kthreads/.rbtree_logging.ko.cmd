@@ -1,0 +1,1 @@
+cmd_/usr/src/linux-4.14.15/scheduled_processes_kthreads/rbtree_logging.ko := ld -r -m elf_i386 -T ./scripts/module-common.lds --build-id  -o /usr/src/linux-4.14.15/scheduled_processes_kthreads/rbtree_logging.ko /usr/src/linux-4.14.15/scheduled_processes_kthreads/rbtree_logging.o /usr/src/linux-4.14.15/scheduled_processes_kthreads/rbtree_logging.mod.o ;  true
