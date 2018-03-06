@@ -7,7 +7,7 @@
 
 NUM_CORES='4'    			# Statically sets the number of jobs (speeds up the process)
 
-cd ~/linux-4.14.15/			# Go to the src folder
+cd /usr/src/linux-4.14.15/			# Go to the src folder
  
 make -j$NUM_CORES			# Compiles the kernal
 make modules -j$NUM_CORES		# Compiles kernal modules
