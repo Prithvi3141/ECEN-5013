@@ -34,7 +34,7 @@ static int process_tree_log_metrics(void *data)
 	int children_count = 0;
 
 	traverse = current;
-        printk(KERN_INFO "I am traversing through the Process Tree. \n");
+        printk(KERN_INFO "I am traversing through the Process Tree. \n\n\n\n\n");
 	while(!kthread_should_stop())
 	{
 		printk(KERN_INFO "Thread Name:%s\n", traverse->comm);
@@ -46,13 +46,14 @@ static int process_tree_log_metrics(void *data)
 		}
 		printk(KERN_INFO "Number of Children:%d\n", children_count);
 		children_count=0;
-                printk(KERN_INFO "Nice Values:%d\n\n\n\n", (traverse->rt_priority - 120));	
-		if(traverse != &init_task)
+                printk(KERN_INFO "Nice Values:%d\n\n\n\n", (traverse->prio - 120));	
+		if((traverse->parent != traverse)&&(traverse != &init_task))
 			traverse = traverse->parent;
 		else
 			break;
 		//printk(KERN_INFO "I am traversing through the Process Tree. \n");
 	}
+	kthread1 = NULL;
 	do_exit(0);
 	return 0;
 }
@@ -80,13 +81,13 @@ static __init int init_process_tree_traverse_module(void)
 static __exit void clean_process_tree_traverse_module(void)
 {
 	printk(KERN_INFO "Unloading the kernel module 'process_tree_traverse'.\n");
-	if (!IS_ERR(kthread1))
+	if (kthread1)
 	{
 		kthread_stop(kthread1);
 		printk(KERN_INFO "Finished stopping 'Process Tree Traversal & logging thread'.\n");
 	}
 	else
-		printk(KERN_INFO "'Process Tree Traversal & Logging Thread' doesn't exist.\n");
+		printk(KERN_INFO "'Process Tree Traversal & Logging Thread' doesn't exist. It might have already been closed\n");
 }
 
 module_init(init_process_tree_traverse_module);

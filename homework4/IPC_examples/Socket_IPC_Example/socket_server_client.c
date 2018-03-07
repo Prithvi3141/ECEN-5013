@@ -64,7 +64,7 @@ int main()
 
                 socklen_t sockaddr_size = sizeof(struct sockaddr_un);
                 retval = connect(msgsockfd_client, (struct sockaddr *)&server, sockaddr_size);    //Client process connecting to the server process using UNIX socket
-		perror("return Value:");
+		//perror("return Value:");
 
 		sprintf(buffer, "Should I Switch on the LED on Beaglebone?");
 		printf("\nClient Process:\t%s", buffer);

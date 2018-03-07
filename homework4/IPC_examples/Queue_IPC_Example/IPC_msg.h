@@ -1,7 +1,7 @@
 #ifndef __IPC_MSG_H
 #define __IPC_MSG_H
 
-#define PATH "/IPC_Socket"
+#define PATH "/IPC_Queue"
 #define MAX_STRING_SIZE 1024
 
 typedef struct string_struct
