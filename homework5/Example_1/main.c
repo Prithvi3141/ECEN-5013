@@ -60,7 +60,7 @@ void main(void)
 
         SysCtlDelay(sys_clock_get/(4*3) );
 
-        UARTvprintf("Count = %d\t", print_count);
+        UARTvprintf("Count = %d\n", print_count);
 
         count++;
 
